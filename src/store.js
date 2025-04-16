@@ -12,7 +12,11 @@ export const initialStore=()=>{
         title: "Do my homework",
         background: null,
       }
-    ]
+    ],
+    contacts:[]
+
+
+
   }
 }
 
@@ -30,3 +34,4 @@ export default function storeReducer(store, action = {}) {
       throw Error('Unknown action.');
   }    
 }
+
