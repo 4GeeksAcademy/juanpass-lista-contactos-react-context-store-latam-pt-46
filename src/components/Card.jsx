@@ -14,18 +14,18 @@ function Card(props) {
         </div>
         <div className="col-md-8">
           <div className="card-body">
-            <h5 className="card-title mb-1">{props.contact.name}</h5>
+            <h5 className="card-title mb-1">{props.contactos.name}</h5>
             <p className="mb-1">
               <i className="fas fa-map-marker-alt me-2"></i>
-              {props.contact.address}
+              {props.contactos.address}
             </p>
             <p className="mb-1">
               <i className="fas fa-phone-alt me-2"></i>
-              {props.contact.phone}
+              {props.contactos.phone}
             </p>
             <p className="mb-0">
               <i className="fas fa-envelope me-2"></i>
-              {props.contact.email}
+              {props.contactos.email}
             </p>
           </div>
         </div>
@@ -45,3 +45,4 @@ function Card(props) {
 }
 
 export default Card;
+

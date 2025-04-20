@@ -1,0 +1,8 @@
+services:
+  juanpasslistacontactosreactcontextlatampt46:
+    image: juanpasslistacontactosreactcontextlatampt46
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - 5002:5002
