@@ -1,4 +1,3 @@
-// src/views/Contact.jsx
 import React, { useContext } from "react";
 import { ContactContext } from "../context/ContactContext";
 import ContactCard from "../components/ContactCard";

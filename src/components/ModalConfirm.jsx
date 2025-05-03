@@ -1,4 +1,3 @@
-// src/components/ModalConfirm.jsx
 import React from "react";
 
 const ModalConfirm = ({ show, onClose, onConfirm, mensaje }) => {

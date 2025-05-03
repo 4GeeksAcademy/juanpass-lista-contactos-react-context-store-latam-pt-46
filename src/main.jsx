@@ -4,13 +4,13 @@ import './index.css';
 import { RouterProvider } from "react-router-dom";
 import { router } from "./routes";
 import { StoreProvider } from './hooks/useGlobalReducer';
-import { ContactProvider } from './context/ContactContext'; // 👈 importa tu nuevo contexto
+import { ContactProvider } from './context/ContactContext'; 
 
 const Main = () => {
     return (
         <React.StrictMode>
             <StoreProvider>
-                <ContactProvider> {/* 👈 Agrega el provider de contactos aquí */}
+                <ContactProvider> 
                     <RouterProvider router={router} />
                 </ContactProvider>
             </StoreProvider>

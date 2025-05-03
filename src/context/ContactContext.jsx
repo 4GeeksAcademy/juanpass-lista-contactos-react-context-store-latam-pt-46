@@ -1,4 +1,3 @@
-// src/context/ContactContext.jsx
 import React, { createContext, useState, useEffect } from "react";
 
 export const ContactContext = createContext();
@@ -9,20 +8,6 @@ const CONTACTS_URL = `${BASE_URL}/contacts`;
 export const ContactProvider = ({ children }) => {
   const [contactos, setContactos] = useState([]);
 
-  // Crear la agenda si no existe
-  const crearAgenda = async () => {
-    try {
-      await fetch(BASE_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ slug: "juanpass", id: 0 }),
-      });
-    } catch (error) {
-      console.warn("⚠️ La agenda ya existe o no se pudo crear.");
-    }
-  };
-
-  // Obtener contactos
   const getContacts = async () => {
     try {
       const res = await fetch(CONTACTS_URL);
@@ -34,7 +19,6 @@ export const ContactProvider = ({ children }) => {
     }
   };
 
-  // Crear contacto
   const createContact = async (contact) => {
     try {
       const res = await fetch(CONTACTS_URL, {
@@ -49,7 +33,6 @@ export const ContactProvider = ({ children }) => {
     }
   };
 
-  // Actualizar contacto
   const updateContact = async (id, updatedInfo) => {
     try {
       const res = await fetch(`${CONTACTS_URL}/${id}`, {
@@ -64,7 +47,6 @@ export const ContactProvider = ({ children }) => {
     }
   };
 
-  // Eliminar contacto
   const deleteContact = async (id) => {
     try {
       const res = await fetch(`${CONTACTS_URL}/${id}`, {
@@ -77,9 +59,28 @@ export const ContactProvider = ({ children }) => {
     }
   };
 
-  // Carga inicial
   useEffect(() => {
-    crearAgenda().then(getContacts);
+    const inicializar = async () => {
+      try {
+        let res = await fetch(BASE_URL);
+        if (!res.ok) {
+          console.log("Agenda no encontrada, creando...");
+          const crearRes = await fetch(BASE_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ slug: "juanpass", id: 0 }),
+          });
+          if (!crearRes.ok) throw new Error("No se pudo crear la agenda");
+        } else {
+          console.log("✅ Agenda existente.");
+        }
+        await getContacts();
+      } catch (error) {
+        console.error("Error al inicializar:", error);
+      }
+    };
+
+    inicializar();
   }, []);
 
   return (
@@ -94,5 +95,6 @@ export const ContactProvider = ({ children }) => {
     >
       {children}
     </ContactContext.Provider>
+
   );
 };
