@@ -1,13 +1,10 @@
 import React, { useState, useContext, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { ContactContext } from "../context/ContactContext";
+import { createContact } from "../services/apiService";
 
 const AddContact = () => {
-  const { createContact, updateContact, contactos } = useContext(ContactContext);
   const navigate = useNavigate();
-  const { id } = useParams();
-
-  const editing = Boolean(id);
   const [form, setForm] = useState({
     name: "",
     address: "",
@@ -15,19 +12,6 @@ const AddContact = () => {
     email: ""
   });
 
-  useEffect(() => {
-    if (editing) {
-      const contacto = contactos.find(c => c.id === parseInt(id));
-      if (contacto) {
-        setForm({
-          name: contacto.name,
-          address: contacto.address,
-          phone: contacto.phone,
-          email: contacto.email
-        });
-      }
-    }
-  }, [id, contactos]);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -35,19 +19,13 @@ const AddContact = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (editing) {
-      await updateContact(id, form);
-    } else {
-      await createContact(form);
-    }
-
+    await createContact(form);
     navigate("/");
   };
 
   return (
     <div className="container mt-5">
-      <h2>{editing ? "Editar Contacto" : "Agregar Contacto"}</h2>
+      <h2>{"Agregar Contacto"}</h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
           <label>Nombre Completo</label>
@@ -91,7 +69,7 @@ const AddContact = () => {
           />
         </div>
         <button className="btn btn-primary" type="submit">
-          {editing ? "Actualizar" : "Guardar"}
+          {"Guardar"}
         </button>
         <button
           className="btn btn-secondary ms-2"

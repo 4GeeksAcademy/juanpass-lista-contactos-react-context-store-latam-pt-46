@@ -7,6 +7,7 @@ import {
 import { Layout } from "./pages/Layout";
 import Contact from "./views/Contact";
 import AddContact from "./views/AddContact";
+import EditContact from "./pages/EditContact";
 
 
 export const router = createBrowserRouter(
@@ -20,7 +21,7 @@ export const router = createBrowserRouter(
       <Route path="/add" element={<AddContact />} />
 
       
-      <Route path="/edit/:id" element={<AddContact />} />
+      <Route path="/edit/:id" element={<EditContact />} />
 
 
 
