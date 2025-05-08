@@ -1,12 +1,14 @@
 import Card from "../components/Card.jsx";
 import React, { useState, useEffect } from "react";
+import useGlobalReducer from "../hooks/useGlobalReducer.jsx"
 
 const BASE_URL_CONTACTS = "https://playground.4geeks.com/contact/agendas/juanpass/contacts";
 
 export const Home = () => {
-    const [contactos, setContactos] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const {store,dispatch} = useGlobalReducer();
+
 
     useEffect(() => {
         const loadContactos = async () => {
@@ -18,7 +20,12 @@ export const Home = () => {
                     throw new Error(`Error al obtener los contactos del usuario: ${response.status}`);
                 }
                 const data = await response.json();
-                setContactos(data); // La API devuelve un array directamente
+                console.log (data)
+                const action = {
+                    type: "set_contacts",
+                    payload: data.contacts
+                }
+                dispatch (action)
             } catch (err) {
                 setError(err.message);
                 console.error("Error al cargar contactos:", err);
@@ -40,8 +47,8 @@ export const Home = () => {
 
     return (
         <div className="d-flex flex-column align-items-center my-5">
-            {contactos.length > 0 ? (
-                contactos.map(contacto => (
+            {store.contacts.length > 0 ? (
+                store.contacts.map(contacto => (
                     <Card key={contacto.id} contacto={contacto} />
                 ))
             ) : (

@@ -8,6 +8,7 @@ import { Layout } from "./pages/Layout";
 import Contact from "./views/Contact";
 import AddContact from "./views/AddContact";
 import EditContact from "./pages/EditContact";
+import {Home} from "./pages/Home"
 
 
 export const router = createBrowserRouter(
@@ -15,7 +16,7 @@ export const router = createBrowserRouter(
     <Route path="/" element={<Layout />} errorElement={<h1>Not found!</h1>}>
 
       
-      <Route path="/" element={<Contact />} />
+      <Route path="/" element={<Home />} />
 
       
       <Route path="/add" element={<AddContact />} />

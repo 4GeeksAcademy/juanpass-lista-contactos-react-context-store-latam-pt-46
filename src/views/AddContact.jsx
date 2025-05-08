@@ -19,7 +19,7 @@ const AddContact = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await createContact(form);
+    await createContact("juanpass",form);
     navigate("/");
   };
 
